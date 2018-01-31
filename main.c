@@ -215,19 +215,43 @@ int main(void)
         // Timers
         //*****************************************************************************
 
+        // Event Flag
+        if ( g_bEventGPIOFlag )
+        {
+
+        }
+
         // Timer 0
         if ( g_bTimer0Flag )
         {
             g_bTimer0Flag = 0;      // Clear flag
             g_ui64Clock100ms++;     // Bump 100 ms clock counter
 
-            // Blink hearat every 1600 ms for 100 ms
-//            if ( 0b0001 == (g_ui64Clock100ms &  0b1111) )
-//            {
-//                GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_7, 0);
-//            } else {
-//                GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_7, GPIO_PIN_7);
-//            }
+            switch ( g_ui64Clock100ms & 0b11)
+            {
+                case 0b00:
+                    GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0);
+                    GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0);
+                    GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0);
+                    break;
+                case 0b01:
+                    GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, GPIO_PIN_1);
+                    GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0);
+                    GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0);
+                    break;
+                case 0b10:
+                    GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0);
+                    GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, GPIO_PIN_2);
+                    GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0);
+                    break;
+                case 0b11:
+                    GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0);
+                    GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0);
+                    GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, GPIO_PIN_3);
+                    break;
+                default:
+                    break;
+            }
         }
 
         // Timer 1
