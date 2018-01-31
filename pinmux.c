@@ -60,46 +60,7 @@ PortFunctionInit(void)
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
-
-    //
-    // Enable pin PB5 for ADC AIN11
-    //
-    GPIOPinTypeADC(GPIO_PORTB_BASE, GPIO_PIN_5);
-
-    //
-    // Enable pin PE2 for ADC AIN1
-    //
-    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_2);
-
-    //
-    // Enable pin PE4 for ADC AIN9
-    //
-    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_4);
-
-    //
-    // Enable pin PE3 for ADC AIN0
-    //
-    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_3);
-
-    //
-    // Enable pin PD2 for ADC AIN5
-    //
-    GPIOPinTypeADC(GPIO_PORTD_BASE, GPIO_PIN_2);
-
-    //
-    // Enable pin PD1 for ADC AIN6
-    //
-    GPIOPinTypeADC(GPIO_PORTD_BASE, GPIO_PIN_1);
-
-    //
-    // Enable pin PE0 for ADC AIN3
-    //
-    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_0);
-
-    //
-    // Enable pin PD0 for ADC AIN7
-    //
-    GPIOPinTypeADC(GPIO_PORTD_BASE, GPIO_PIN_0);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
 
     //
     // Enable pin PE1 for ADC AIN2
@@ -107,14 +68,9 @@ PortFunctionInit(void)
     GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_1);
 
     //
-    // Enable pin PB4 for ADC AIN10
+    // Enable pin PE0 for ADC AIN3
     //
-    GPIOPinTypeADC(GPIO_PORTB_BASE, GPIO_PIN_4);
-
-    //
-    // Enable pin PE5 for ADC AIN8
-    //
-    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_5);
+    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_0);
 
     //
     // Enable pin PD3 for ADC AIN4
@@ -122,19 +78,79 @@ PortFunctionInit(void)
     GPIOPinTypeADC(GPIO_PORTD_BASE, GPIO_PIN_3);
 
     //
+    // Enable pin PE5 for ADC AIN8
+    //
+    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_5);
+
+    //
+    // Enable pin PB4 for ADC AIN10
+    //
+    GPIOPinTypeADC(GPIO_PORTB_BASE, GPIO_PIN_4);
+
+    //
+    // Enable pin PD1 for ADC AIN6
+    //
+    GPIOPinTypeADC(GPIO_PORTD_BASE, GPIO_PIN_1);
+
+    //
+    // Enable pin PE2 for ADC AIN1
+    //
+    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_2);
+
+    //
+    // Enable pin PB5 for ADC AIN11
+    //
+    GPIOPinTypeADC(GPIO_PORTB_BASE, GPIO_PIN_5);
+
+    //
+    // Enable pin PD0 for ADC AIN7
+    //
+    GPIOPinTypeADC(GPIO_PORTD_BASE, GPIO_PIN_0);
+
+    //
+    // Enable pin PD2 for ADC AIN5
+    //
+    GPIOPinTypeADC(GPIO_PORTD_BASE, GPIO_PIN_2);
+
+    //
+    // Enable pin PE3 for ADC AIN0
+    //
+    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_3);
+
+    //
+    // Enable pin PE4 for ADC AIN9
+    //
+    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_4);
+
+    //
     // Enable pin PC5 for GPIOInput
     //
     GPIOPinTypeGPIOInput(GPIO_PORTC_BASE, GPIO_PIN_5);
 
     //
-    // Enable pin PA1 for UART0 U0TX
+    // Enable pin PF1 for GPIOOutput
     //
-    GPIOPinConfigure(GPIO_PA1_U0TX);
-    GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_1);
+    GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_1);
+
+    //
+    // Enable pin PF3 for GPIOOutput
+    //
+    GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_3);
+
+    //
+    // Enable pin PF2 for GPIOOutput
+    //
+    GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_2);
 
     //
     // Enable pin PA0 for UART0 U0RX
     //
     GPIOPinConfigure(GPIO_PA0_U0RX);
     GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0);
+
+    //
+    // Enable pin PA1 for UART0 U0TX
+    //
+    GPIOPinConfigure(GPIO_PA1_U0TX);
+    GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_1);
 }
