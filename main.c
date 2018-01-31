@@ -161,20 +161,7 @@ void ConfigureInterrupts(void)
 //*****************************************************************************
 void processCommands()
 {
-    UARTprintf("\033[2J");
-    UARTprintf("\033[0;0H");
-
-    uint32_t ADCValues0[1];
     uint32_t ADCValues2[1];
-
-    // Capture rogo value
-    ADCProcessorTrigger(ADC0_BASE, 3);
-    while(!ADCIntStatus(ADC0_BASE, 3, false)) {}
-    ADCIntClear(ADC0_BASE, 3);
-    ADCSequenceDataGet(ADC0_BASE, 3, ADCValues0);
-    g_u16Current = (uint16_t)ADCValues0[0];
-
-    UARTprintf("Current: 0x%08X\n", g_u16Current);
 
     // Get Temperature value
     ADCProcessorTrigger(ADC1_BASE, 3);
@@ -182,8 +169,6 @@ void processCommands()
     ADCIntClear(ADC1_BASE, 3);
     ADCSequenceDataGet(ADC1_BASE, 3, ADCValues2);
     g_ui16MicroTemp = (uint16_t)ADCValues2[0];
-
-    UARTprintf("Temp:    0x%08X\n", g_ui16MicroTemp);
 }
 
 //*****************************************************************************
@@ -212,14 +197,26 @@ int main(void)
     while(1)
     {
         //*****************************************************************************
-        // Timers
+        // Event
         //*****************************************************************************
 
-        // Event Flag
         if ( g_bEventGPIOFlag )
         {
+            g_bEventGPIOFlag = 0;
 
+            uint32_t ADCValues0[1];
+
+            // Capture rogo value
+            ADCProcessorTrigger(ADC0_BASE, 3);
+            while(!ADCIntStatus(ADC0_BASE, 3, false)) {}
+            ADCIntClear(ADC0_BASE, 3);
+            ADCSequenceDataGet(ADC0_BASE, 3, ADCValues0);
+            g_u16Current = (uint16_t)ADCValues0[0];
         }
+
+        //*****************************************************************************
+        // Timers
+        //*****************************************************************************
 
         // Timer 0
         if ( g_bTimer0Flag )
@@ -261,6 +258,12 @@ int main(void)
             g_ui64Heartbeat++;      // Bump the heartbeat counter
 
             processCommands();
+
+            UARTprintf("\033[2J");
+            UARTprintf("\033[0;0H");
+
+            UARTprintf("Temp:    0x%04x\n", g_ui16MicroTemp);
+            UARTprintf("Current: 0x%04x\n", g_u16Current);
         }
     }
 }
