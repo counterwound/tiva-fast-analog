@@ -52,20 +52,14 @@ PortFunctionInit(void)
     //
     // Enable Peripheral Clocks 
     //
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_SSI0);
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_CAN0);
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_UART2);
     SysCtlPeripheralEnable(SYSCTL_PERIPH_ADC0);
     SysCtlPeripheralEnable(SYSCTL_PERIPH_ADC1);
     SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_USB0);
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_I2C0);
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
 
     //
     // Enable pin PD0 for ADC AIN7
@@ -73,29 +67,34 @@ PortFunctionInit(void)
     GPIOPinTypeADC(GPIO_PORTD_BASE, GPIO_PIN_0);
 
     //
-    // Enable pin PE2 for ADC AIN1
+    // Enable pin PE0 for ADC AIN3
     //
-    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_2);
-
-    //
-    // Enable pin PE4 for ADC AIN9
-    //
-    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_4);
-
-    //
-    // Enable pin PE3 for ADC AIN0
-    //
-    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_3);
-
-    //
-    // Enable pin PD2 for ADC AIN5
-    //
-    GPIOPinTypeADC(GPIO_PORTD_BASE, GPIO_PIN_2);
+    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_0);
 
     //
     // Enable pin PD3 for ADC AIN4
     //
     GPIOPinTypeADC(GPIO_PORTD_BASE, GPIO_PIN_3);
+
+    //
+    // Enable pin PE5 for ADC AIN8
+    //
+    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_5);
+
+    //
+    // Enable pin PB4 for ADC AIN10
+    //
+    GPIOPinTypeADC(GPIO_PORTB_BASE, GPIO_PIN_4);
+
+    //
+    // Enable pin PD1 for ADC AIN6
+    //
+    GPIOPinTypeADC(GPIO_PORTD_BASE, GPIO_PIN_1);
+
+    //
+    // Enable pin PE2 for ADC AIN1
+    //
+    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_2);
 
     //
     // Enable pin PE1 for ADC AIN2
@@ -108,145 +107,24 @@ PortFunctionInit(void)
     GPIOPinTypeADC(GPIO_PORTB_BASE, GPIO_PIN_5);
 
     //
-    // Enable pin PD1 for ADC AIN6
+    // Enable pin PD2 for ADC AIN5
     //
-    GPIOPinTypeADC(GPIO_PORTD_BASE, GPIO_PIN_1);
+    GPIOPinTypeADC(GPIO_PORTD_BASE, GPIO_PIN_2);
 
     //
-    // Enable pin PB4 for ADC AIN10
+    // Enable pin PE3 for ADC AIN0
     //
-    GPIOPinTypeADC(GPIO_PORTB_BASE, GPIO_PIN_4);
+    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_3);
 
     //
-    // Enable pin PE5 for ADC AIN8
+    // Enable pin PE4 for ADC AIN9
     //
-    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_5);
-
-    //
-    // Enable pin PE0 for ADC AIN3
-    //
-    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_0);
-
-    //
-    // Enable pin PF0 for CAN0 CAN0RX
-    // First open the lock and select the bits we want to modify in the GPIO commit register.
-    //
-    HWREG(GPIO_PORTF_BASE + GPIO_O_LOCK) = GPIO_LOCK_KEY;
-    HWREG(GPIO_PORTF_BASE + GPIO_O_CR) = 0x1;
-
-    //
-    // Now modify the configuration of the pins that we unlocked.
-    //
-    GPIOPinConfigure(GPIO_PF0_CAN0RX);
-    GPIOPinTypeCAN(GPIO_PORTF_BASE, GPIO_PIN_0);
-
-    //
-    // Enable pin PF3 for CAN0 CAN0TX
-    //
-    GPIOPinConfigure(GPIO_PF3_CAN0TX);
-    GPIOPinTypeCAN(GPIO_PORTF_BASE, GPIO_PIN_3);
-
-    //
-    // Enable pin PA6 for GPIOInput
-    //
-    GPIOPinTypeGPIOInput(GPIO_PORTA_BASE, GPIO_PIN_6);
-
-    //
-    // Enable pin PA7 for GPIOOutput
-    //
-    GPIOPinTypeGPIOOutput(GPIO_PORTA_BASE, GPIO_PIN_7);
-
-    //
-    // Enable pin PB7 for GPIOInput
-    //
-    GPIOPinTypeGPIOInput(GPIO_PORTB_BASE, GPIO_PIN_7);
-
-    //
-    // Enable pin PB0 for GPIOInput
-    //
-    GPIOPinTypeGPIOInput(GPIO_PORTB_BASE, GPIO_PIN_0);
-
-    //
-    // Enable pin PB6 for GPIOInput
-    //
-    GPIOPinTypeGPIOInput(GPIO_PORTB_BASE, GPIO_PIN_6);
+    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_4);
 
     //
     // Enable pin PC5 for GPIOInput
     //
     GPIOPinTypeGPIOInput(GPIO_PORTC_BASE, GPIO_PIN_5);
-
-    //
-    // Enable pin PC7 for GPIOOutput
-    //
-    GPIOPinTypeGPIOOutput(GPIO_PORTC_BASE, GPIO_PIN_7);
-
-    //
-    // Enable pin PC4 for GPIOOutput
-    //
-    GPIOPinTypeGPIOOutput(GPIO_PORTC_BASE, GPIO_PIN_4);
-
-    //
-    // Enable pin PC6 for GPIOInput
-    //
-    GPIOPinTypeGPIOInput(GPIO_PORTC_BASE, GPIO_PIN_6);
-
-    //
-    // Enable pin PF2 for GPIOInput
-    //
-    GPIOPinTypeGPIOInput(GPIO_PORTF_BASE, GPIO_PIN_2);
-
-    //
-    // Enable pin PF4 for GPIOInput
-    //
-    GPIOPinTypeGPIOInput(GPIO_PORTF_BASE, GPIO_PIN_4);
-
-    //
-    // Enable pin PF1 for GPIOInput
-    //
-    GPIOPinTypeGPIOInput(GPIO_PORTF_BASE, GPIO_PIN_1);
-
-    //
-    // Enable pin PB3 for I2C0 I2C0SDA
-    //
-    GPIOPinConfigure(GPIO_PB3_I2C0SDA);
-    GPIOPinTypeI2C(GPIO_PORTB_BASE, GPIO_PIN_3);
-
-    //
-    // Enable pin PB2 for I2C0 I2C0SCL
-    //
-    GPIOPinConfigure(GPIO_PB2_I2C0SCL);
-    GPIOPinTypeI2CSCL(GPIO_PORTB_BASE, GPIO_PIN_2);
-
-    //
-    // Enable pin PA4 for SSI0 SSI0RX
-    //
-    GPIOPinConfigure(GPIO_PA4_SSI0RX);
-    GPIOPinTypeSSI(GPIO_PORTA_BASE, GPIO_PIN_4);
-
-    //
-    // Enable pin PA2 for SSI0 SSI0CLK
-    //
-    GPIOPinConfigure(GPIO_PA2_SSI0CLK);
-    GPIOPinTypeSSI(GPIO_PORTA_BASE, GPIO_PIN_2);
-
-    //
-    // Enable pin PA5 for SSI0 SSI0TX
-    //
-    GPIOPinConfigure(GPIO_PA5_SSI0TX);
-    GPIOPinTypeSSI(GPIO_PORTA_BASE, GPIO_PIN_5);
-
-    //
-    // Enable pin PA3 for SSI0 SSI0FSS
-    //
-    GPIOPinConfigure(GPIO_PA3_SSI0FSS);
-    GPIOPinTypeSSI(GPIO_PORTA_BASE, GPIO_PIN_3);
-
-    //
-    // Enable pin PA1 for UART0 U0TX
-    //
-    GPIOPinConfigure(GPIO_PA1_U0TX);
-    GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_1);
 
     //
     // Enable pin PA0 for UART0 U0RX
@@ -255,36 +133,8 @@ PortFunctionInit(void)
     GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0);
 
     //
-    // Enable pin PD6 for UART2 U2RX
+    // Enable pin PA1 for UART0 U0TX
     //
-    GPIOPinConfigure(GPIO_PD6_U2RX);
-    GPIOPinTypeUART(GPIO_PORTD_BASE, GPIO_PIN_6);
-
-    //
-    // Enable pin PD7 for UART2 U2TX
-    // First open the lock and select the bits we want to modify in the GPIO commit register.
-    //
-    HWREG(GPIO_PORTD_BASE + GPIO_O_LOCK) = GPIO_LOCK_KEY;
-    HWREG(GPIO_PORTD_BASE + GPIO_O_CR) = 0x80;
-
-    //
-    // Now modify the configuration of the pins that we unlocked.
-    //
-    GPIOPinConfigure(GPIO_PD7_U2TX);
-    GPIOPinTypeUART(GPIO_PORTD_BASE, GPIO_PIN_7);
-
-    //
-    // Enable pin PD4 for USB0 USB0DM
-    //
-    GPIOPinTypeUSBAnalog(GPIO_PORTD_BASE, GPIO_PIN_4);
-
-    //
-    // Enable pin PB1 for USB0 USB0VBUS
-    //
-    GPIOPinTypeUSBAnalog(GPIO_PORTB_BASE, GPIO_PIN_1);
-
-    //
-    // Enable pin PD5 for USB0 USB0DP
-    //
-    GPIOPinTypeUSBAnalog(GPIO_PORTD_BASE, GPIO_PIN_5);
+    GPIOPinConfigure(GPIO_PA1_U0TX);
+    GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_1);
 }
