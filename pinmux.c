@@ -43,7 +43,6 @@
 #include "inc/hw_gpio.h"
 #include "driverlib/sysctl.h"
 #include "driverlib/pin_map.h"
-#include "driverlib/rom_map.h"
 #include "driverlib/gpio.h"
 
 //*****************************************************************************
@@ -53,80 +52,80 @@ PortFunctionInit(void)
     //
     // Enable Peripheral Clocks 
     //
-    MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_SSI0);
-    MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_CAN0);
-    MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_UART2);
-    MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_ADC0);
-    MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_ADC1);
-    MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
-    MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_USB0);
-    MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_I2C0);
-    MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
-    MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
-    MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);
-    MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
-    MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
-    MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_SSI0);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_CAN0);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_UART2);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_ADC0);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_ADC1);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_USB0);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_I2C0);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
 
     //
     // Enable pin PD0 for ADC AIN7
     //
-    MAP_GPIOPinTypeADC(GPIO_PORTD_BASE, GPIO_PIN_0);
+    GPIOPinTypeADC(GPIO_PORTD_BASE, GPIO_PIN_0);
 
     //
     // Enable pin PE2 for ADC AIN1
     //
-    MAP_GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_2);
+    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_2);
 
     //
     // Enable pin PE4 for ADC AIN9
     //
-    MAP_GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_4);
+    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_4);
 
     //
     // Enable pin PE3 for ADC AIN0
     //
-    MAP_GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_3);
+    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_3);
 
     //
     // Enable pin PD2 for ADC AIN5
     //
-    MAP_GPIOPinTypeADC(GPIO_PORTD_BASE, GPIO_PIN_2);
+    GPIOPinTypeADC(GPIO_PORTD_BASE, GPIO_PIN_2);
 
     //
     // Enable pin PD3 for ADC AIN4
     //
-    MAP_GPIOPinTypeADC(GPIO_PORTD_BASE, GPIO_PIN_3);
+    GPIOPinTypeADC(GPIO_PORTD_BASE, GPIO_PIN_3);
 
     //
     // Enable pin PE1 for ADC AIN2
     //
-    MAP_GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_1);
+    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_1);
 
     //
     // Enable pin PB5 for ADC AIN11
     //
-    MAP_GPIOPinTypeADC(GPIO_PORTB_BASE, GPIO_PIN_5);
+    GPIOPinTypeADC(GPIO_PORTB_BASE, GPIO_PIN_5);
 
     //
     // Enable pin PD1 for ADC AIN6
     //
-    MAP_GPIOPinTypeADC(GPIO_PORTD_BASE, GPIO_PIN_1);
+    GPIOPinTypeADC(GPIO_PORTD_BASE, GPIO_PIN_1);
 
     //
     // Enable pin PB4 for ADC AIN10
     //
-    MAP_GPIOPinTypeADC(GPIO_PORTB_BASE, GPIO_PIN_4);
+    GPIOPinTypeADC(GPIO_PORTB_BASE, GPIO_PIN_4);
 
     //
     // Enable pin PE5 for ADC AIN8
     //
-    MAP_GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_5);
+    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_5);
 
     //
     // Enable pin PE0 for ADC AIN3
     //
-    MAP_GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_0);
+    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_0);
 
     //
     // Enable pin PF0 for CAN0 CAN0RX
@@ -138,128 +137,128 @@ PortFunctionInit(void)
     //
     // Now modify the configuration of the pins that we unlocked.
     //
-    MAP_GPIOPinConfigure(GPIO_PF0_CAN0RX);
-    MAP_GPIOPinTypeCAN(GPIO_PORTF_BASE, GPIO_PIN_0);
+    GPIOPinConfigure(GPIO_PF0_CAN0RX);
+    GPIOPinTypeCAN(GPIO_PORTF_BASE, GPIO_PIN_0);
 
     //
     // Enable pin PF3 for CAN0 CAN0TX
     //
-    MAP_GPIOPinConfigure(GPIO_PF3_CAN0TX);
-    MAP_GPIOPinTypeCAN(GPIO_PORTF_BASE, GPIO_PIN_3);
+    GPIOPinConfigure(GPIO_PF3_CAN0TX);
+    GPIOPinTypeCAN(GPIO_PORTF_BASE, GPIO_PIN_3);
 
     //
     // Enable pin PA6 for GPIOInput
     //
-    MAP_GPIOPinTypeGPIOInput(GPIO_PORTA_BASE, GPIO_PIN_6);
+    GPIOPinTypeGPIOInput(GPIO_PORTA_BASE, GPIO_PIN_6);
 
     //
     // Enable pin PA7 for GPIOOutput
     //
-    MAP_GPIOPinTypeGPIOOutput(GPIO_PORTA_BASE, GPIO_PIN_7);
+    GPIOPinTypeGPIOOutput(GPIO_PORTA_BASE, GPIO_PIN_7);
 
     //
     // Enable pin PB7 for GPIOInput
     //
-    MAP_GPIOPinTypeGPIOInput(GPIO_PORTB_BASE, GPIO_PIN_7);
+    GPIOPinTypeGPIOInput(GPIO_PORTB_BASE, GPIO_PIN_7);
 
     //
     // Enable pin PB0 for GPIOInput
     //
-    MAP_GPIOPinTypeGPIOInput(GPIO_PORTB_BASE, GPIO_PIN_0);
+    GPIOPinTypeGPIOInput(GPIO_PORTB_BASE, GPIO_PIN_0);
 
     //
     // Enable pin PB6 for GPIOInput
     //
-    MAP_GPIOPinTypeGPIOInput(GPIO_PORTB_BASE, GPIO_PIN_6);
+    GPIOPinTypeGPIOInput(GPIO_PORTB_BASE, GPIO_PIN_6);
 
     //
     // Enable pin PC5 for GPIOInput
     //
-    MAP_GPIOPinTypeGPIOInput(GPIO_PORTC_BASE, GPIO_PIN_5);
+    GPIOPinTypeGPIOInput(GPIO_PORTC_BASE, GPIO_PIN_5);
 
     //
     // Enable pin PC7 for GPIOOutput
     //
-    MAP_GPIOPinTypeGPIOOutput(GPIO_PORTC_BASE, GPIO_PIN_7);
+    GPIOPinTypeGPIOOutput(GPIO_PORTC_BASE, GPIO_PIN_7);
 
     //
     // Enable pin PC4 for GPIOOutput
     //
-    MAP_GPIOPinTypeGPIOOutput(GPIO_PORTC_BASE, GPIO_PIN_4);
+    GPIOPinTypeGPIOOutput(GPIO_PORTC_BASE, GPIO_PIN_4);
 
     //
     // Enable pin PC6 for GPIOInput
     //
-    MAP_GPIOPinTypeGPIOInput(GPIO_PORTC_BASE, GPIO_PIN_6);
+    GPIOPinTypeGPIOInput(GPIO_PORTC_BASE, GPIO_PIN_6);
 
     //
     // Enable pin PF2 for GPIOInput
     //
-    MAP_GPIOPinTypeGPIOInput(GPIO_PORTF_BASE, GPIO_PIN_2);
+    GPIOPinTypeGPIOInput(GPIO_PORTF_BASE, GPIO_PIN_2);
 
     //
     // Enable pin PF4 for GPIOInput
     //
-    MAP_GPIOPinTypeGPIOInput(GPIO_PORTF_BASE, GPIO_PIN_4);
+    GPIOPinTypeGPIOInput(GPIO_PORTF_BASE, GPIO_PIN_4);
 
     //
     // Enable pin PF1 for GPIOInput
     //
-    MAP_GPIOPinTypeGPIOInput(GPIO_PORTF_BASE, GPIO_PIN_1);
+    GPIOPinTypeGPIOInput(GPIO_PORTF_BASE, GPIO_PIN_1);
 
     //
     // Enable pin PB3 for I2C0 I2C0SDA
     //
-    MAP_GPIOPinConfigure(GPIO_PB3_I2C0SDA);
-    MAP_GPIOPinTypeI2C(GPIO_PORTB_BASE, GPIO_PIN_3);
+    GPIOPinConfigure(GPIO_PB3_I2C0SDA);
+    GPIOPinTypeI2C(GPIO_PORTB_BASE, GPIO_PIN_3);
 
     //
     // Enable pin PB2 for I2C0 I2C0SCL
     //
-    MAP_GPIOPinConfigure(GPIO_PB2_I2C0SCL);
-    MAP_GPIOPinTypeI2CSCL(GPIO_PORTB_BASE, GPIO_PIN_2);
+    GPIOPinConfigure(GPIO_PB2_I2C0SCL);
+    GPIOPinTypeI2CSCL(GPIO_PORTB_BASE, GPIO_PIN_2);
 
     //
     // Enable pin PA4 for SSI0 SSI0RX
     //
-    MAP_GPIOPinConfigure(GPIO_PA4_SSI0RX);
-    MAP_GPIOPinTypeSSI(GPIO_PORTA_BASE, GPIO_PIN_4);
+    GPIOPinConfigure(GPIO_PA4_SSI0RX);
+    GPIOPinTypeSSI(GPIO_PORTA_BASE, GPIO_PIN_4);
 
     //
     // Enable pin PA2 for SSI0 SSI0CLK
     //
-    MAP_GPIOPinConfigure(GPIO_PA2_SSI0CLK);
-    MAP_GPIOPinTypeSSI(GPIO_PORTA_BASE, GPIO_PIN_2);
+    GPIOPinConfigure(GPIO_PA2_SSI0CLK);
+    GPIOPinTypeSSI(GPIO_PORTA_BASE, GPIO_PIN_2);
 
     //
     // Enable pin PA5 for SSI0 SSI0TX
     //
-    MAP_GPIOPinConfigure(GPIO_PA5_SSI0TX);
-    MAP_GPIOPinTypeSSI(GPIO_PORTA_BASE, GPIO_PIN_5);
+    GPIOPinConfigure(GPIO_PA5_SSI0TX);
+    GPIOPinTypeSSI(GPIO_PORTA_BASE, GPIO_PIN_5);
 
     //
     // Enable pin PA3 for SSI0 SSI0FSS
     //
-    MAP_GPIOPinConfigure(GPIO_PA3_SSI0FSS);
-    MAP_GPIOPinTypeSSI(GPIO_PORTA_BASE, GPIO_PIN_3);
+    GPIOPinConfigure(GPIO_PA3_SSI0FSS);
+    GPIOPinTypeSSI(GPIO_PORTA_BASE, GPIO_PIN_3);
 
     //
     // Enable pin PA1 for UART0 U0TX
     //
-    MAP_GPIOPinConfigure(GPIO_PA1_U0TX);
-    MAP_GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_1);
+    GPIOPinConfigure(GPIO_PA1_U0TX);
+    GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_1);
 
     //
     // Enable pin PA0 for UART0 U0RX
     //
-    MAP_GPIOPinConfigure(GPIO_PA0_U0RX);
-    MAP_GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0);
+    GPIOPinConfigure(GPIO_PA0_U0RX);
+    GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0);
 
     //
     // Enable pin PD6 for UART2 U2RX
     //
-    MAP_GPIOPinConfigure(GPIO_PD6_U2RX);
-    MAP_GPIOPinTypeUART(GPIO_PORTD_BASE, GPIO_PIN_6);
+    GPIOPinConfigure(GPIO_PD6_U2RX);
+    GPIOPinTypeUART(GPIO_PORTD_BASE, GPIO_PIN_6);
 
     //
     // Enable pin PD7 for UART2 U2TX
@@ -271,21 +270,21 @@ PortFunctionInit(void)
     //
     // Now modify the configuration of the pins that we unlocked.
     //
-    MAP_GPIOPinConfigure(GPIO_PD7_U2TX);
-    MAP_GPIOPinTypeUART(GPIO_PORTD_BASE, GPIO_PIN_7);
+    GPIOPinConfigure(GPIO_PD7_U2TX);
+    GPIOPinTypeUART(GPIO_PORTD_BASE, GPIO_PIN_7);
 
     //
     // Enable pin PD4 for USB0 USB0DM
     //
-    MAP_GPIOPinTypeUSBAnalog(GPIO_PORTD_BASE, GPIO_PIN_4);
+    GPIOPinTypeUSBAnalog(GPIO_PORTD_BASE, GPIO_PIN_4);
 
     //
     // Enable pin PB1 for USB0 USB0VBUS
     //
-    MAP_GPIOPinTypeUSBAnalog(GPIO_PORTB_BASE, GPIO_PIN_1);
+    GPIOPinTypeUSBAnalog(GPIO_PORTB_BASE, GPIO_PIN_1);
 
     //
     // Enable pin PD5 for USB0 USB0DP
     //
-    MAP_GPIOPinTypeUSBAnalog(GPIO_PORTD_BASE, GPIO_PIN_5);
+    GPIOPinTypeUSBAnalog(GPIO_PORTD_BASE, GPIO_PIN_5);
 }
