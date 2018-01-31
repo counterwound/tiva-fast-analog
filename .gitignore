@@ -1,0 +1,28 @@
+# General
+.DS_Store
+*.zip
+*.raw
+*.log
+
+# Altium
+*.AnnotationPreview
+*.err
+*.PrjPCBStructure
+*.PcbDoc.htm
+__Previews
+History
+Design\ Rule*.*
+hardware/Project\ Logs*
+
+# Code Composer
+.settings
+.launches
+Debug
+Eval
+targetConfigs
+
+# LTspice
+*.net
+*.plt
+
+# Labview
