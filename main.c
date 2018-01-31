@@ -20,16 +20,12 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "inc/hw_adc.h"
-#include "inc/hw_can.h"
 #include "inc/hw_gpio.h"
-#include "inc/hw_i2c.h"
 #include "inc/hw_ints.h"
 #include "inc/hw_memmap.h"
 #include "inc/hw_types.h"
 #include "driverlib/adc.h"
-#include "driverlib/can.h"
 #include "driverlib/gpio.h"
-#include "driverlib/i2c.h"
 #include "driverlib/interrupt.h"
 #include "driverlib/pin_map.h"
 #include "driverlib/sysctl.h"
@@ -138,12 +134,6 @@ void PortCIntHandler(void)
     ui32StatusGPIOC = GPIOIntStatus(GPIO_PORTC_BASE,true);
     GPIOIntClear(GPIO_PORTC_BASE, ui32StatusGPIOC);
 
-    if ( GPIO_INT_PIN_6 == (ui32StatusGPIOC & GPIO_INT_PIN_6) )
-    {
-        //¿FIXME? g_bBatteryGPIOFlag = 1;
-        g_bBatteryGPIOFlag = 0;  //¿FIXME?
-    }
-
     if ( GPIO_INT_PIN_5 == (ui32StatusGPIOC & GPIO_INT_PIN_5) )
     {
         g_bEventGPIOFlag = 1;
@@ -157,18 +147,6 @@ void ConfigureInterrupts(void)
 {
     // Enable processor interrupts.
     IntMasterEnable();
-
-    IntEnable(INT_CAN0);
-    CANIntEnable(CAN0_BASE, CAN_INT_MASTER | CAN_INT_ERROR | CAN_INT_STATUS);
-    CANEnable(CAN0_BASE);
-
-    IntEnable(INT_UART2);
-    UARTIntEnable(UART2_BASE, UART_INT_RX);
-
-    // Battery Fault monitor interrupt
-    GPIOPadConfigSet(GPIO_PORTC_BASE,GPIO_PIN_6,GPIO_STRENGTH_2MA,GPIO_PIN_TYPE_STD);
-    GPIOIntTypeSet(GPIO_PORTC_BASE,GPIO_PIN_6,GPIO_RISING_EDGE);
-    GPIOIntEnable(GPIO_PORTC_BASE, GPIO_INT_PIN_6);
 
     // Event monitor interrupt
     GPIOPadConfigSet(GPIO_PORTC_BASE,GPIO_PIN_5,GPIO_STRENGTH_2MA,GPIO_PIN_TYPE_STD);
