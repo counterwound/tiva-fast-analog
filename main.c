@@ -45,6 +45,7 @@
 // Variables
 //*****************************************************************************
 uint32_t count = 0;
+uint32_t count1 = 0;
 
 volatile bool g_bEventGPIOFlag = 0;         // External Event input
 
@@ -164,6 +165,7 @@ void ADC0IntHandler()
     // 2. replacing calls to ROM_* functions with raw memory accesses (less portable)
     *(uint32_t *) (ADC0_BASE + ADC_O_ISC) = ADC_INT_DMA_SS0;    // optimized form of ROM_ADCIntClearEx(ADC0_BASE, ADC_INT_DMA_SS0);
     count = uDMAChannelSizeGet(UDMA_CHANNEL_ADC0 | UDMA_PRI_SELECT);
+    count1 = uDMAChannelSizeGet(UDMA_CHANNEL_ADC0 | UDMA_ALT_SELECT);
     ADCprocess(UDMA_CHANNEL_ADC0 | UDMA_PRI_SELECT);
     ADCprocess(UDMA_CHANNEL_ADC0 | UDMA_ALT_SELECT);
 }
@@ -201,7 +203,7 @@ void ConfigureUDMA(void){
     uDMAChannelControlSet(UDMA_CHANNEL_ADC0 | UDMA_ALT_SELECT, UDMA_SIZE_16 | UDMA_SRC_INC_NONE | UDMA_DST_INC_16 | UDMA_ARB_128);
     uDMAChannelTransferSet(UDMA_CHANNEL_ADC0 | UDMA_PRI_SELECT, UDMA_MODE_PINGPONG, (void *)(ADC0_BASE + ADC_O_SSFIFO0), ADCValues2, ADC_SAMPLE_BUF_SIZE);
     uDMAChannelTransferSet(UDMA_CHANNEL_ADC0 | UDMA_ALT_SELECT, UDMA_MODE_PINGPONG, (void *)(ADC0_BASE + ADC_O_SSFIFO0), ADCValues2, ADC_SAMPLE_BUF_SIZE);
-    IntEnable(INT_ADC0SS0);
+    //IntEnable(INT_ADC0SS0);
 
     //ADCIntEnableEx(ADC0_BASE, ADC_INT_DMA_SS0);
     uDMAChannelEnable(UDMA_CHANNEL_ADC0);
