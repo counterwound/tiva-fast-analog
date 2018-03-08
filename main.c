@@ -44,7 +44,7 @@
 //*****************************************************************************
 // Variables
 //*****************************************************************************
-int count = 0;
+uint32_t count = 0;
 
 volatile bool g_bEventGPIOFlag = 0;         // External Event input
 
@@ -99,13 +99,14 @@ void ConfigureUART(void)
 //*****************************************************************************
 void ConfigureADC(void)
 {
-    ADCSequenceConfigure(ADC0_BASE, 0, ADC_TRIGGER_TIMER, 0);
+    ADCSequenceConfigure(ADC0_BASE, 0, ADC_TRIGGER_EXTERNAL, 0);
     //ADCClockConfigSet(ADC0_BASE, ADC_CLOCK_SRC_PIOSC | ADC_CLOCK_RATE_FULL, 1);
+    GPIOADCTriggerEnable(GPIO_PORTB_BASE,GPIO_PIN_4);
 
     ADCSequenceStepConfigure(ADC0_BASE, 0, 0, ADC_CTL_CH0);
     ADCSequenceStepConfigure(ADC0_BASE, 0, 1, ADC_CTL_CH1);
     ADCSequenceStepConfigure(ADC0_BASE, 0, 2, ADC_CTL_CH2);
-    ADCSequenceStepConfigure(ADC0_BASE, 0, 3, ADC_CTL_CH3);
+    ADCSequenceStepConfigure(ADC0_BASE, 0, 9, ADC_CTL_CH3);
     ADCSequenceStepConfigure(ADC0_BASE, 0, 4, ADC_CTL_CH4);
     ADCSequenceStepConfigure(ADC0_BASE, 0, 5, ADC_CTL_CH5);
     ADCSequenceStepConfigure(ADC0_BASE, 0, 6, ADC_CTL_CH6);
@@ -142,7 +143,7 @@ void ADCprocess(uint32_t ch)
     // the ADC is read directly into the correct emacBufTx to be transmitted
     uDMAChannelTransferSet(ch, UDMA_MODE_PINGPONG, (void *)(ADC0_BASE + ADC_O_SSFIFO0), ADCValues2, ADC_SAMPLE_BUF_SIZE);
 
-    if(g_bEventGPIOFlag == 1){
+    /*if(g_bEventGPIOFlag == 1){
         g_bEventGPIOFlag = 0;
         ADCSequenceDisable(ADC0_BASE, 0);
         int i;
@@ -150,7 +151,7 @@ void ADCprocess(uint32_t ch)
             out[i] = ADCValues2[i];
         }
         ADCSequenceEnable(ADC0_BASE, 0);
-    }
+    }*/
 }
 
 void ADC0IntHandler()
@@ -162,7 +163,7 @@ void ADC0IntHandler()
     // 1. choosing ADC_SAMPLE_BUF_SIZE to minimize overhead
     // 2. replacing calls to ROM_* functions with raw memory accesses (less portable)
     *(uint32_t *) (ADC0_BASE + ADC_O_ISC) = ADC_INT_DMA_SS0;    // optimized form of ROM_ADCIntClearEx(ADC0_BASE, ADC_INT_DMA_SS0);
-
+    count = uDMAChannelSizeGet(UDMA_CHANNEL_ADC0 | UDMA_PRI_SELECT);
     ADCprocess(UDMA_CHANNEL_ADC0 | UDMA_PRI_SELECT);
     ADCprocess(UDMA_CHANNEL_ADC0 | UDMA_ALT_SELECT);
 }
@@ -202,7 +203,7 @@ void ConfigureUDMA(void){
     uDMAChannelTransferSet(UDMA_CHANNEL_ADC0 | UDMA_ALT_SELECT, UDMA_MODE_PINGPONG, (void *)(ADC0_BASE + ADC_O_SSFIFO0), ADCValues2, ADC_SAMPLE_BUF_SIZE);
     IntEnable(INT_ADC0SS0);
 
-    ADCIntEnableEx(ADC0_BASE, ADC_INT_DMA_SS0);
+    //ADCIntEnableEx(ADC0_BASE, ADC_INT_DMA_SS0);
     uDMAChannelEnable(UDMA_CHANNEL_ADC0);
 
 }
@@ -215,7 +216,7 @@ void ConfigureUDMA(void){
 
 
 // Immediately trigger a message burst if the External fault occurs
-void PortCIntHandler(void)
+/*void PortCIntHandler(void)
 {
     uint32_t ui32StatusGPIOC;
     ui32StatusGPIOC = GPIOIntStatus(GPIO_PORTC_BASE,true);
@@ -225,7 +226,7 @@ void PortCIntHandler(void)
     {
         g_bEventGPIOFlag = 1;
     }
-}
+}*/
 
 //*****************************************************************************
 // Configure the interrupts
@@ -240,7 +241,11 @@ void ConfigureInterrupts(void)
     GPIOIntTypeSet(GPIO_PORTC_BASE,GPIO_PIN_5,GPIO_FALLING_EDGE);
     GPIOIntEnable(GPIO_PORTC_BASE, GPIO_PIN_5);
 
-    GPIOIntRegister(GPIO_PORTC_BASE,PortCIntHandler);
+    GPIOPadConfigSet(GPIO_PORTB_BASE,GPIO_PIN_4,GPIO_STRENGTH_2MA,GPIO_PIN_TYPE_STD);
+    //GPIOIntTypeSet(GPIO_PORTB_BASE,GPIO_PIN_4,GPIO_FALLING_EDGE);
+    //GPIOIntEnable(GPIO_PORTB_BASE, GPIO_PIN_4);
+
+    //GPIOIntRegister(GPIO_PORTC_BASE,PortCIntHandler);
     ADCIntEnable(ADC0_BASE, 0);
     ADCIntRegister(ADC0_BASE,0,ADC0IntHandler);
 

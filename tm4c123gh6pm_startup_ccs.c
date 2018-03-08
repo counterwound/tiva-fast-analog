@@ -91,7 +91,7 @@ void (* const g_pfnVectors[])(void) =
     IntDefaultHandler,                      // The SysTick handler
 	IntDefaultHandler,                      // GPIO Port A
     IntDefaultHandler,                      // GPIO Port B
-	PortCIntHandler,                      // GPIO Port C
+	/*PortCIntHandler*/ IntDefaultHandler,                      // GPIO Port C
     IntDefaultHandler,                      // GPIO Port D
     IntDefaultHandler,                      // GPIO Port E
     IntDefaultHandler,                      // UART0 Rx and Tx
@@ -103,7 +103,7 @@ void (* const g_pfnVectors[])(void) =
     IntDefaultHandler,                      // PWM Generator 1
     IntDefaultHandler,                      // PWM Generator 2
     IntDefaultHandler,                      // Quadrature Encoder 0
-    ADC0IntHandler,                      // ADC Sequence 0
+    /*ADC0IntHandler*/ IntDefaultHandler,                      // ADC Sequence 0
     IntDefaultHandler,                      // ADC Sequence 1
     IntDefaultHandler,                      // ADC Sequence 2
     IntDefaultHandler,                      // ADC Sequence 3
