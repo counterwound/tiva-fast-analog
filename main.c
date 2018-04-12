@@ -79,6 +79,7 @@ void ConfigureADC(void)
 //*****************************************************************************
 
 volatile bool g_bEventGPIOFlag = 0;         // External Event input
+bool g_bDataFlag = 0;
 
 // Immediately trigger a message burst if the External fault occurs
 void PortCIntHandler(void)
@@ -137,7 +138,9 @@ int main(void)
         // Event
         //*****************************************************************************
 
-        if(g_bEventGPIOFlag){
+        if(g_bEventGPIOFlag && !g_bDataFlag){
+            IntMasterDisable();
+            GPIOIntDisable(GPIO_PORTC_BASE, GPIO_INT_PIN_5);
             g_bEventGPIOFlag = 0;
             int i = 0;
             for(i = 0; i < 1024; i += 8){
@@ -146,6 +149,13 @@ int main(void)
                 ADCIntClear(ADC0_BASE, 0);
                 ADCSequenceDataGet(ADC0_BASE, 0, &ADCValues[i]);
             }
+            g_bDataFlag = 1;
+            GPIOIntClear(GPIO_PORTC_BASE, GPIO_PIN_5);
+            IntMasterEnable();
+            GPIOIntEnable(GPIO_PORTC_BASE, GPIO_INT_PIN_5);
+        }
+        else{
+            g_bEventGPIOFlag = 0;
         }
     }
 }
