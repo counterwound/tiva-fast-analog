@@ -55,7 +55,6 @@ uint32_t ADCValues[ADC_SAMPLE_BUF_SIZE];
 void ConfigureADC(void)
 {
     ADCSequenceConfigure(ADC0_BASE, 0, ADC_TRIGGER_PROCESSOR, 0);
-    GPIOADCTriggerEnable(GPIO_PORTB_BASE,GPIO_PIN_4);
 
     ADCSequenceStepConfigure(ADC0_BASE, 0, 0, ADC_CTL_CH0);
     ADCSequenceStepConfigure(ADC0_BASE, 0, 1, ADC_CTL_CH1);
@@ -79,7 +78,7 @@ void ConfigureADC(void)
 //*****************************************************************************
 
 volatile bool g_bEventGPIOFlag = 0;         // External Event input
-bool g_bDataFlag = 0;
+bool g_bEventStatus = 0;
 
 // Immediately trigger a message burst if the External fault occurs
 void PortCIntHandler(void)
@@ -101,7 +100,7 @@ void ConfigureInterrupts(void)
     // Enable processor interrupts.
     IntMasterEnable();
 
-    GPIOPadConfigSet(GPIO_PORTC_BASE,GPIO_PIN_5,GPIO_STRENGTH_2MA,GPIO_PIN_TYPE_STD);
+    GPIOPadConfigSet(GPIO_PORTC_BASE,GPIO_PIN_5,GPIO_STRENGTH_2MA,GPIO_PIN_TYPE_STD_WPD);
     GPIOIntTypeSet(GPIO_PORTC_BASE,GPIO_PIN_5,GPIO_FALLING_EDGE);
     GPIOIntEnable(GPIO_PORTC_BASE, GPIO_PIN_5);
 
@@ -138,7 +137,7 @@ int main(void)
         // Event
         //*****************************************************************************
 
-        if(g_bEventGPIOFlag && !g_bDataFlag){
+        if(g_bEventGPIOFlag && !g_bEventStatus){
             IntMasterDisable();
             GPIOIntDisable(GPIO_PORTC_BASE, GPIO_INT_PIN_5);
             g_bEventGPIOFlag = 0;
@@ -149,7 +148,7 @@ int main(void)
                 ADCIntClear(ADC0_BASE, 0);
                 ADCSequenceDataGet(ADC0_BASE, 0, &ADCValues[i]);
             }
-            g_bDataFlag = 1;
+            g_bEventStatus = 1;
             GPIOIntClear(GPIO_PORTC_BASE, GPIO_PIN_5);
             IntMasterEnable();
             GPIOIntEnable(GPIO_PORTC_BASE, GPIO_INT_PIN_5);
